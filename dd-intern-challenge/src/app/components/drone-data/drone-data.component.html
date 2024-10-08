@@ -1,0 +1,31 @@
+<div style="display: flex; justify-content: center; width: 60vh">
+  <div style="width: 100%; overflow-x: auto">
+    <table mat-table [dataSource]="droneData" class="mat-elevation-z8">
+      <!-- Dynamically generate columns -->
+      <ng-container
+        *ngFor="let column of displayedColumns"
+        [matColumnDef]="column"
+      >
+        <!-- clean  up column name -->
+        <th mat-header-cell *matHeaderCellDef>{{ column | titlecase }}</th>
+        <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+      </ng-container>
+
+      <!-- Header and Row Definitions -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>
+<div style="display: flex; justify-content: center">
+  <!---Input box & display response-->
+  <mat-form-field appearance="fill">
+    <mat-label>Ask a question</mat-label>
+    <input matInput [(ngModel)]="userQuery" />
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="submitQuery()">
+    Submit
+  </button>
+
+  <p *ngIf="aiResponse">{{ aiResponse }}</p>
+</div>
